@@ -1,16 +1,17 @@
 import { UserType } from '../types/User';
+import User from '../sequelize/models/User';
 import IService from './interfaces/Service';
 
 export default class UserService implements IService<UserType> {
-  private model: string;
+  private model: typeof User;
 
-  constructor() {
-    this.model = 'temporary';
+  constructor(model: typeof User) {
+    this.model = model;
   }
 
-  public create(entity: UserType): void {
-    console.log(this.model);
-    console.log(entity);
-    // return null;
+  public async create(user: UserType): Promise<UserType | null> {
+    const newUser = await this.model.create(user);
+    console.log(newUser);
+    return null;
   }
 }
