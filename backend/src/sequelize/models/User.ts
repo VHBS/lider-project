@@ -4,20 +4,26 @@ import db from '.';
 class User extends Model {
   public password: string;
 
-  public username: string;
+  public firstName: string;
+
+  public lastName: string;
 
   public role: string;
 
   public email: string;
+
+  public cpf: string;
 
   public id: number;
 
   get userData() {
     return {
       id: this.id,
-      username: this.username,
+      firstName: this.firstName,
+      lastName: this.lastName,
       role: this.role,
       email: this.email,
+      cpf: this.cpf,
     };
   }
 }
