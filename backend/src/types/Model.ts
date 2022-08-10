@@ -1,4 +1,5 @@
 export type UserCreated = {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
@@ -6,7 +7,7 @@ export type UserCreated = {
   cpf: string;
 };
 
-export type User = {
+export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
@@ -15,4 +16,4 @@ export type User = {
   cpf: string;
 };
 
-export type UserTypeModel = User | UserCreated;
+export type UserTypeModel = UserType | UserCreated;

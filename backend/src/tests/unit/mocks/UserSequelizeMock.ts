@@ -2,7 +2,17 @@ const SequelizeMock = require('sequelize-mock');
 
 const dbConnectionMock = new SequelizeMock();
 
-export const UserMock = {
+export const UserMockIn = {
+  firstName: 'Victor',
+  lastName: 'Schlichting',
+  role: 'customer',
+  email: 'victor@email.com',
+  cpf: '12345678911',
+  password: '123456',
+};
+
+export const UserMockOut = {
+  id: 1,
   firstName: 'Victor',
   lastName: 'Schlichting',
   role: 'customer',
@@ -11,19 +21,10 @@ export const UserMock = {
 };
 
 export const UserSequelizeMock = dbConnectionMock.define('User', {
-  userData: {
-    id: 1,
-    ...UserMock,
-  },
+  userData: UserMockOut,
   instanceMethods: {
     findOrCreate() {
-      return [
-        {
-          id: 1,
-          ...UserMock,
-        },
-        true,
-      ];
+      return [UserMockOut, true];
     },
   },
 });

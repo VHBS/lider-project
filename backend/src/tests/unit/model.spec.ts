@@ -1,13 +1,13 @@
-import { UserMock, UserSequelizeMock } from './mocks/UserSequelizeMock';
+import { UserMockOut, UserMockIn, UserSequelizeMock } from './mocks/UserSequelizeMock';
 
 import UserModel from '../../models/UserModel';
 
 describe('Testing Model', () => {
   it('Create a new user', async () => {
     const userModel = new UserModel(UserSequelizeMock);
-    const newUser = await userModel.create(UserMock);
+    const newUser = await userModel.create(UserMockIn);
 
-    expect(newUser).toEqual({ id: 1, ...UserMock });
+    expect(newUser).toEqual(UserMockOut);
   });
 
   it('Dont create a new user', async () => {
@@ -18,7 +18,7 @@ describe('Testing Model', () => {
       return null;
     });
     const userModel = new UserModel(UserSequelizeMock);
-    const newUser = await userModel.create(UserMock);
+    const newUser = await userModel.create(UserMockIn);
 
     expect(newUser).toEqual(null);
   });
