@@ -33,6 +33,7 @@ services:
       - DB_HOST=db_mysql
       - DB_NAME=Lider_stock
       - DB_PORT=3306
+      - JWT_SECRET=lider_project_by_victor_schlichtting
     healthcheck:
       test: ["CMD", "lsof", "-t", "-i:3001"]
       timeout: 10s
