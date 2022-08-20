@@ -1,23 +1,30 @@
 import IModel from '../models/interfaces/Model';
-import { UserType, UserTypeModel } from '../types/Model';
+import { UserCreated, UserType, UserTypeModel } from '../types/Model';
 import { UserTypeService } from '../types/Service';
 import IService from './interfaces/Service';
+import Jasonwebtoken from '../utils/Jasonwebtoken';
+import IJasonwebtoken from '../utils/interfaces/IJasonwebtoken';
 
 export default class UserService implements IService<UserTypeService> {
-  private model: IModel<UserTypeModel>;
+  private _model: IModel<UserTypeModel>;
+
+  private jasonwebtoken: IJasonwebtoken;
 
   constructor(model: IModel<UserTypeModel>) {
-    this.model = model;
+    this._model = model;
+    this.jasonwebtoken = new Jasonwebtoken();
   }
 
   public async create(entity: UserType): Promise<UserTypeService> {
-    const user = await this.model.create(entity);
+    const user = await this._model.create(entity);
 
     if (!user) return { message: 'User already exists' };
 
+    const token = this.jasonwebtoken.sign(user as UserCreated);
+
     return {
       user,
-      token: 'teste',
+      token,
     } as UserTypeService;
   }
 }
