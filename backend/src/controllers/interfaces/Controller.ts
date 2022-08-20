@@ -2,8 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 export default interface IController<T> {
   route: string;
-  // _service: IService;
-  create(req: Request<T>, res: Response<T>, next: NextFunction): Response | void;
+  create(req: Request<T>, res: Response<T>, next: NextFunction): Promise<Response<T> | void>;
 
   // readAll(req: Request, res: Response<T[]>, next: NextFunction): Promise<Response | void>;
 

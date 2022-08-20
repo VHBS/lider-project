@@ -1,18 +1,15 @@
 import App from './app';
-import UserController from './controllers/UserController';
 import { PORT } from './env';
+import userController from './factories/UserFactory';
 import CustomRouter from './routes';
+import { UserTypeService } from './types/Service';
 
 const port = PORT || 3001;
 
 const server = new App();
 
-// Controllers Instances
-const userController = new UserController();
-
 // Routes Instances
-const userRouter = new CustomRouter();
-
+const userRouter = new CustomRouter<UserTypeService>();
 userRouter.addRoute(userController);
 
 server.addRouter(userRouter.router);

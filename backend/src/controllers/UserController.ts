@@ -1,21 +1,29 @@
 import { Request, Response, NextFunction } from 'express';
 import IController from './interfaces/Controller';
-import { UserType, UserCreate } from '../types/User';
+import { UserTypeService, UserCreate } from '../types/Service';
+import IService from '../services/interfaces/Service';
 
-export default class UserController implements IController<UserType> {
+export default class UserController implements IController<UserTypeService> {
   public route: string;
 
-  // _service: IService;
-  constructor() {
+  private _service: IService<UserTypeService>;
+
+  constructor(service: IService<UserTypeService>) {
     this.route = '/user';
+    this._service = service;
 
     this.create = this.create.bind(this);
   }
 
-  public create(_req: Request<UserCreate>, res: Response<UserType>, next: NextFunction): Response<UserType> | void {
+  public async create(
+    req: Request<UserCreate>,
+    res: Response<UserTypeService>,
+    next: NextFunction,
+  ): Promise<Response<UserTypeService> | void> {
     try {
-      console.log(this.route);
-      return res.status(200).json({ message: 'user route' });
+      const { firstName, lastName, email, password, cpf } = req.body;
+      const result = await this._service.create({ firstName, lastName, email, password, cpf });
+      return res.status(200).json(result);
     } catch (error) {
       return next(error);
     }

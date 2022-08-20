@@ -10,10 +10,9 @@ export default class CustomRouter<T> {
     this.addRoute = this.addRoute.bind(this);
   }
 
-  public addRoute(controller: IController<T>, route: string = controller.route) {
-    console.log(route);
+  public addRoute(controller: IController<T>) {
     // controller.create
-    this.router.get(route, controller.create);
+    this.router.post(controller.route, controller.create);
     // this.router.get(route, controller.read);
     // this.router.get(`${route}/:id`, controller.readOne);
     // this.router.put(`${route}/:id`, controller.update);
