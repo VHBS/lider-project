@@ -1,3 +1,4 @@
+import bcrypr from 'bcryptjs';
 import IModel from '../models/interfaces/Model';
 import { UserCreated, UserType, UserTypeModel } from '../types/Model';
 import { UserTypeService } from '../types/Service';
@@ -16,7 +17,11 @@ export default class UserService implements IService<UserTypeService> {
   }
 
   public async create(entity: UserType): Promise<UserTypeService> {
-    const user = await this._model.create(entity);
+    const saltRounds = 10;
+    const userToCreate = entity;
+    userToCreate.password = await bcrypr.hash(entity.password, saltRounds);
+
+    const user = await this._model.create(userToCreate);
 
     if (!user) return { message: 'User already exists' };
 
