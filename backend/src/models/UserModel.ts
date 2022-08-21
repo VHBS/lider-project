@@ -11,7 +11,7 @@ export default class UserModel implements IModel<UserTypeModel> {
 
   async create(entity: UserType): Promise<UserCreated | null> {
     const [user, created] = await this.model.findOrCreate({
-      where: { cpf: entity.cpf },
+      where: { email: entity.email },
       defaults: entity,
     });
 
