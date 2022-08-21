@@ -16,6 +16,8 @@ class User extends Model {
 
   public id: number;
 
+  public status: string;
+
   get userData() {
     return {
       id: this.id,
@@ -24,6 +26,7 @@ class User extends Model {
       role: this.role,
       email: this.email,
       cpf: this.cpf,
+      status: this.status,
     };
   }
 }

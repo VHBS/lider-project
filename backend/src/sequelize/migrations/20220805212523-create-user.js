@@ -31,6 +31,11 @@ module.exports = {
         cpf: {
           type: Sequelize.STRING,
         },
+        status: {
+          allowNull: false,
+          type: Sequelize.STRING,
+          defaultValue: 'inactive',
+        },
       },
       {
         underscored: true,
